@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{base :: head}">
+    <meta charset="UTF-8">
+    <title>Add Order</title>
+</head>
+
+<body>
+<div th:replace="~{base :: logologout}"></div>
+
+<label><h2>Add an Order</h2></label>
+
+<div class="container">
+
+    <div Id="error" name="error" th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+    <form name="formCadastro" id="formCadastro" th:action="@{/}" method="post" th:object="${newOrder}" class="card-body">
+        <input th:field="*{idOrder}" type="hidden">
+
+        <div class="formcenter">
+
+            <label><h2>Sender Details</h2></label>
+
+            <div class="form-group">
+                <label for="senderFirstName">First Name</label>
+                <input Id="senderFirstName" type="text"
+                       name="senderFirstName" th:field="*{senderDetails.firstName}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="First Name">
+                <p th:if="${#fields.hasErrors('senderDetails.firstName')}" th:errors="*{senderDetails.firstName}">
+            </div>
+
+            <div class="form-group">
+                <label for="senderLastName">Last Name</label>
+                <input Id="senderLastName" type="text" name="senderLastName" th:field="*{senderDetails.lastName}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Last Name">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('senderDetails.lastName')}" th:errors="*{senderDetails.lastName}">
+            </div>
+
+            <div class="form-group">
+                <label for="senderAge">Age</label>
+                <input Id="senderAge" type="number" name="senderAge" th:field="*{senderDetails.age}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Age">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('senderDetails.age')}" th:errors="*{senderDetails.age}">
+            </div>
+
+            <div class="form-group">
+                <label for="senderAddress">Address</label>
+                <input required Id="senderAddress" type="text" name="senderAddress" th:field="*{senderDetails.address}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="address">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('senderDetails.address')}" th:errors="*{senderDetails.address}">
+            </div>
+
+            <div class="form-group">
+                <label for="senderCity">City</label>
+                <input Id="senderCity" type="text" name="senderCity" th:field="*{senderDetails.city}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="City/Town">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('senderDetails.city')}" th:errors="*{senderDetails.city}">
+            </div>
+
+            <div class="form-group">
+                <label for="senderState">State</label>
+                <select Id="senderState" name="senderState" th:field="*{senderDetails.state}"
+                        th:errorclass="is-invalid" class="form-control">
+                    <option th:value="''" th:text="' '"></option>
+                    <option th:value="'Andhra-Pradesh'" th:text="Andhra-Pradesh"></option>
+                    <option th:value="'Arunachal-Pradesh'" th:text="Arunachal-Pradesh"></option>
+                    <option th:value="'Assam'" th:text="Assam"></option>
+                    <option th:value="'Bihar'" th:text="Bihar"></option>
+                    <option th:value="'Chhattisgarh'" th:text="Chhattisgarh"></option>
+                    <option th:value="'Goa'" th:text="Goa"></option>
+                    <option th:value="'Gujarat'" th:text="Gujarat"></option>
+                    <option th:value="'Haryana'" th:text="Haryana"></option>
+                    <option th:value="'Himachal-Pradesh'" th:text="Himachal-Pradesh"></option>
+                    <option th:value="'Jammu-Kashmir'" th:text="Jammu-Kashmir"></option>
+                    <option th:value="'Jharkhand'" th:text="Jharkhand"></option>
+                    <option th:value="'Karnataka'" th:text="Karnataka"></option>
+                    <option th:value="'Kerala'" th:text="Kerala"></option>
+                    <option th:value="'Madhya-Pradesh'" th:text="Madhya-Pradesh"></option>
+                    <option th:value="'Maharashtra'" th:text="Maharashtra"></option>
+                    <option th:value="'Manipur'" th:text="Manipur"></option>
+                    <option th:value="'Meghalaya'" th:text="Meghalaya"></option>
+                    <option th:value="'Mizoram'" th:text="Mizoram"></option>
+                    <option th:value="'Nagaland'" th:text="Nagaland"></option>
+                    <option th:value="'Odisha'" th:text="Odisha"></option>
+                    <option th:value="'Punjab'" th:text="Punjab"></option>
+                    <option th:value="'Rajasthan'" th:text="Rajasthan"></option>
+                    <option th:value="'Sikkim'" th:text="Sikkim"></option>
+                    <option th:value="'Tamil-Nadu'" th:text="Tamil-Nadu"></option>
+                    <option th:value="'Telangana'" th:text="Telangana"></option>
+                    <option th:value="'Tripura'" th:text="Tripura"></option>
+                    <option th:value="'Uttarakhand'" th:text="Uttarakhand"></option>
+                    <option th:value="'Uttar-Pradesh'" th:text="Uttar-Pradesh"></option>
+                    <option th:value="'West-Bengal'" th:text="West-Bengal"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="senderContact">Mobile</label>
+                <input Id="senderContact" type="text" name="senderContact" th:field="*{senderDetails.mobile}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Mobile no">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('senderDetails.mobile')}" th:errors="*{senderDetails.mobile}">
+            </div>
+
+            <div class="form-group">
+                <label for="senderZipCode">ZIP Code</label>
+                <input Id="senderZipCode" type="text" name="senderZipCode" th:field="*{senderDetails.zip}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Zip Code">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('senderDetails.zip')}" th:errors="*{senderDetails.zip}">
+            </div>
+
+        </div>
+
+        <div class="formcenter">
+
+            <label><h2>Receiver Details</h2></label>
+
+            <div class="form-group">
+                <label for="recipientFirstName">First Name</label>
+                <input Id="recipientFirstName" type="text" name="recipientFirstName" th:field="*{receiverDetails.firstName}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="First Name">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.firstName')}" th:errors="*{receiverDetails.firstName}">
+            </div>
+
+            <div class="form-group">
+                <label for="recipientLastName">Last Name</label>
+                <input Id="recipientLastName" type="text" name="recipientLastName" th:field="*{receiverDetails.lastName}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Last Name">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.lastName')}" th:errors="*{receiverDetails.lastName}">
+            </div>
+
+            <div class="form-group">
+                <label for="recipientAge">Age</label>
+                <input Id="recipientAge" type="number" name="recipientAge" th:field="*{receiverDetails.age}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Age">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.age')}" th:errors="*{receiverDetails.age}">
+            </div>
+
+            <div class="form-group">
+                <label for="recipientAddress">Address</label>
+                <input required Id="recipientAddress" type="text" name="recipientAddress" th:field="*{receiverDetails.address}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="address">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.address')}" th:errors="*{receiverDetails.address}">
+            </div>
+
+            <div class="form-group">
+                <label for="recipientCity">City</label>
+                <input Id="recipientCity" type="text" name="recipientCity" th:field="*{receiverDetails.city}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="City/Town">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.city')}" th:errors="*{receiverDetails.city}">
+            </div>
+
+            <div class="form-group">
+                <label for="recipientState">State</label>
+                <select Id="recipientState" name="recipientState" th:field="*{receiverDetails.state}"
+                        th:errorclass="is-invalid" class="form-control">
+                    <option th:value="''" th:text="' '"></option>
+                    <option th:value="'Andhra-Pradesh'" th:text="Andhra-Pradesh"></option>
+                    <option th:value="'Arunachal-Pradesh'" th:text="Arunachal-Pradesh"></option>
+                    <option th:value="'Assam'" th:text="Assam"></option>
+                    <option th:value="'Bihar'" th:text="Bihar"></option>
+                    <option th:value="'Chhattisgarh'" th:text="Chhattisgarh"></option>
+                    <option th:value="'Goa'" th:text="Goa"></option>
+                    <option th:value="'Gujarat'" th:text="Gujarat"></option>
+                    <option th:value="'Haryana'" th:text="Haryana"></option>
+                    <option th:value="'Himachal-Pradesh'" th:text="Himachal-Pradesh"></option>
+                    <option th:value="'Jammu-Kashmir'" th:text="Jammu-Kashmir"></option>
+                    <option th:value="'Jharkhand'" th:text="Jharkhand"></option>
+                    <option th:value="'Karnataka'" th:text="Karnataka"></option>
+                    <option th:value="'Kerala'" th:text="Kerala"></option>
+                    <option th:value="'Madhya-Pradesh'" th:text="Madhya-Pradesh"></option>
+                    <option th:value="'Maharashtra'" th:text="Maharashtra"></option>
+                    <option th:value="'Manipur'" th:text="Manipur"></option>
+                    <option th:value="'Meghalaya'" th:text="Meghalaya"></option>
+                    <option th:value="'Mizoram'" th:text="Mizoram"></option>
+                    <option th:value="'Nagaland'" th:text="Nagaland"></option>
+                    <option th:value="'Odisha'" th:text="Odisha"></option>
+                    <option th:value="'Punjab'" th:text="Punjab"></option>
+                    <option th:value="'Rajasthan'" th:text="Rajasthan"></option>
+                    <option th:value="'Sikkim'" th:text="Sikkim"></option>
+                    <option th:value="'Tamil-Nadu'" th:text="Tamil-Nadu"></option>
+                    <option th:value="'Telangana'" th:text="Telangana"></option>
+                    <option th:value="'Tripura'" th:text="Tripura"></option>
+                    <option th:value="'Uttarakhand'" th:text="Uttarakhand"></option>
+                    <option th:value="'Uttar-Pradesh'" th:text="Uttar-Pradesh"></option>
+                    <option th:value="'West-Bengal'" th:text="West-Bengal"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="recipientContact">Mobile</label>
+                <input Id="recipientContact" type="text" name="recipientContact" th:field="*{receiverDetails.mobile}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Mobile no">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.mobile')}" th:errors="*{receiverDetails.mobile}">
+            </div>
+
+            <div class="form-group">
+                <label for="recipientZipCode">ZIP Code</label>
+                <input Id="recipientZipCode" type="text" name="recipientZipCode" th:field="*{receiverDetails.zip}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="Zip Code">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('receiverDetails.zip')}" th:errors="*{receiverDetails.zip}">
+            </div>
+
+        </div>
+
+        <div class="formcenter">
+
+            <div class="form-group">
+                <label for="orderDate">Order Date:</label>
+                <input Id ="orderDate" name="orderDate" th:field="*{localDate}" th:value="*{localDate}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="dd/MM/yyyy" type="text">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('localDate')}" th:errors="*{localDate}">
+            </div>
+
+            <div class="form-group">
+                <label for="weight">Weight</label>
+                <input Id = "weight" type="text" name="weight" th:field="*{weight}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="weight in Kg">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('weight')}" th:errors="*{weight}">
+            </div>
+
+            <div class="form-group">
+                <label for="cost">Cost</label>
+                <input Id = "cost" type="text" name="cost" th:field="*{cost}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="0.00">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('cost')}" th:errors="*{cost}">
+            </div>
+
+        </div>
+
+        <button name="placeOrder" Id="placeOrder" class="btn btn-primary" type="submit" role="button">Place Order</button>
+
+        <button name="cancel" Id="cancel" type="button" class="btn btn-primary" onclick="window.history.back();">Cancel</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{base :: head}">
+    <meta charset="UTF-8">
+    <title>Orders</title>
+</head>
+
+<body>
+
+<h3>Welcome</h3>
+
+<div th:replace="~{base :: logologout}"></div>
+
+<div class="container">
+
+    <div class="alert alert-primary" role="alert" th:if="${message}">
+        <span th:text="${message}"></span>
+    </div>
+
+    <table id="tabela-orders" class="table table-hover">
+
+        <span class="add-order">
+            <button name="addOrder" Id="addOrder" type="submit" onclick="document.querySelector('#form-add-order').submit()" class="text-light ml-3" sec:authorize="isAuthenticated()" href="#">Add Order</button>
+            <form id="form-add-order" th:action="@{/addorder}" method="get"></form>
+        </span>
+
+        <div name="noorders" Id="noorders" th:if="${#lists.isEmpty(orders)}">
+
+            <span class="orders-not-found" th:text="'No orders found'"></span>
+            <span class="orders-not-found" th:text="'Click Add Order button to add an order'"></span>
+
+        </div>
+
+        <span th:if="${not #lists.isEmpty(orders)}">
+
+                <table border="1">
+                <thead>
+                    <tr>
+                        <th scope="col">Order ID</th>
+                        <th scope="col">Order Date</th>
+                        <th scope="col">Sender State</th>
+                        <th scope="col">Receiver State</th>
+                        <th scope="col">Order Status</th>
+                        <th scope="col">Weight (in Kgs)</th>
+                        <th scope="col">Cost(@ Rs, 10/Kg)</th>
+                        <th scope="col">Update Order</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+
+                    <tr th:each="order : ${orders}" >
+
+                        <label name="orderId" Id='"orderId" + ${order.idOrder}'><td scope="row" th:text="${order.idOrder}">Order ID</td></label>
+                        <label name="orderDate" Id='"orderDate" + ${order.idOrder}'><td th:text="${#temporals.format(order.localDate, 'dd-MM-yyyy')}">10-02-2020</td></label>
+                        <label name="senderState" Id='"senderState" + ${order.idOrder}'><td th:text="${order.senderDetails.state}">Sender State</td></label>
+                        <label name="recpientState" Id='"recpientState" + ${order.idOrder}'><td th:text="${order.receiverDetails.state}">Receiver State</td></label>
+                        <label name="orderStatus" Id='"orderStatus" + ${order.idOrder}'><td th:text="${order.status}">Order Status</td></label>
+                        <label name="weight" Id='"weight" + ${order.idOrder}'><td th:text="${order.weight}">Weight</td></label>
+                        <label name="cost" Id='"cost" + ${order.idOrder}'><td th:text="${order.cost}">Cost</td></label>
+                        <div th:if="${#strings.containsIgnoreCase(order.status,'OPEN')}">
+                            <label><td sec:authorize="isAuthenticated()" class="update" >
+
+                                <a type="button" name="edit" Id='"edit" + ${order.idOrder}' class="btn btn-block btn-primary m-0" th:href="@{'/updateorderstatus/' + ${order.idOrder}}">Update Order Status</a>
+
+                            </td></label>
+                        </div>
+
+                    </tr>
+
+                </tbody>
+
+                </table>
+
+            </span>
+
+    </table>
+    <br />
+</div>
+</body>
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{base :: head}">
+    <meta charset="UTF-8">
+    <title><h2>Order Details</h2></title>
+</head>
+
+<body>
+
+<div class="logo-container mb-3 p-3 d-flex justify-content-between">
+    <span>
+        <a id="home" name="home" Link text = "home" href="/">Home</a>
+    </span>
+</div>
+
+<div class="container">
+
+    <form class="card-body">
+
+        <tbody>
+
+        <tr th:each="order : ${orders}" >
+
+            <div class="form-group">
+                <label><h3>Order ID</h3></label>
+                <label th:text="${order.idOrder}"></label>
+            </div>
+
+            <div class="formcenter">
+
+                <header><h2>Sender Details</h2></header>
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <label th:text="${order.senderDetails.firstName}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <label th:text="${order.senderDetails.lastName}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <label th:text="${order.senderDetails.address}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+                    <label th:text="${order.senderDetails.city}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <label th:text="${order.senderDetails.state}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>ZIP Code</label>
+                    <label th:text="${order.senderDetails.zip}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <label th:text="${order.senderDetails.age}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <label th:text="${order.senderDetails.mobile}"></label>
+                </div>
+
+            </div>
+
+            <div class="formcenter">
+
+                <header><h2>Receiver Details</h2></header>
+
+                <div class="form-group">
+                    <label>First Name</label>
+                    <label th:text="${order.receiverDetails.firstName}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <label th:text="${order.receiverDetails.lastName}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Address</label>
+                    <label th:text="${order.receiverDetails.address}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>City</label>
+                    <label th:text="${order.receiverDetails.city}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>State</label>
+                    <label th:text="${order.receiverDetails.state}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>ZIP Code</label>
+                    <label th:text="${order.receiverDetails.zip}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Age</label>
+                    <label th:text="${order.receiverDetails.age}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Mobile Number</label>
+                    <label th:text="${order.receiverDetails.mobile}"></label>
+                </div>
+
+            </div>
+
+            <div class="formcenter">
+
+                <div class="form-group">
+                    <label>Weight</label>
+                    <label th:text="${order.weight}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Cost</label>
+                    <label th:text="${order.cost}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <label th:text="${order.status}"></label>
+                </div>
+
+                <div class="form-group">
+                    <label>Order Date</label>
+                    <label th:text="${#temporals.format(order.localDate, 'dd-MM-yyyy')}"></label>
+                </div>
+
+                <div class="form-group">
+
+                    <div th:if="${#strings.containsIgnoreCase(order.status,'DELIVERED')}">
+                        <label>Delivered On</label>
+                        <label class="order-not-found" th:text="${#temporals.format(order.delivered, 'dd-MM-yyyy')}"></label>
+                    </div>
+
+                    <div th:if="${!#strings.containsIgnoreCase(order.status,'DELIVERED')}">
+                        <label>Delivered On</label>
+                        <label class="order-not-found" th:text="'Not delivered'"></label>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </tr>
+
+        </tbody>
+
+    </form>
+
+</div>
+</body>
+</html>

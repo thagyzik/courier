@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="~{base :: head}">
+    <meta charset="UTF-8">
+    <title>Update Order Status</title>
+</head>
+
+<body>
+
+<header><h2>Order Details</h2></header>
+
+<div class="container">
+
+    <div Id="error" name="error" th:if="${message}" th:text="${message}" th:class="${'alert ' + alertClass}"/>
+
+    <form th:action="@{/update}" method="post" th:object="${orderUpdate}" class="card-body">
+
+        <input th:field="*{idOrder}" type="hidden">
+
+        <div class="form-group">
+            <label><h3>Order Number</h3></label>
+            <label th:text="*{idOrder}"></label>
+        </div>
+
+        <div class="formcenter">
+
+            <div class="form-group">
+                <label for="statusSelect">Status</label>
+                <select name="statusSelect" Id="statusSelect" required=""  th:field="*{status}" th:errorclass="is-invalid" class="form-control">
+                    <option th:value="'DELIVERED'" th:text="DELIVERED"></option>
+                    <option th:value="'CANCELLED'" th:text="CANCELLED"></option>
+                </select>
+
+            </div>
+
+            <div class="form-group">
+                <label for="deliveryDate">Delivered Date:</label>
+                <input type="text" Id="deliveryDate" required="" name="deliveryDate" th:field="*{delivered}" th:value="*{delivered}"
+                       th:errorclass="is-invalid" class="form-control" placeholder="dd/MM/yyyy">
+                <p class="alert alert-danger" th:if="${#fields.hasErrors('delivered')}" th:errors="*{delivered}">
+            </div>
+
+        </div>
+
+        <button Id="savechange" name="savechange" class="btn btn-primary" type="submit" role="button">Save</button>
+
+    </form>
+
+    <a Link text = "cancel" name="cancel" class="btn btn-primary mt-2" th:href="@{'/orders'}" role="button">Cancel</a>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head th:replace="~{base :: head}">
+    <meta charset="UTF-8">
+    <title>Track Order</title>
+</head>
+
+<body>
+
+<div th:replace="~{base :: logo}"></div>
+<div th:replace="~{base :: logologout}"></div>
+
+<a id="Login" name="Login" Link text = "Login" sec:authorize="!isAuthenticated()" th:href="@{/login}">Login</a>
+
+<div class="container">
+
+    <div Id="error" name="error" th:if="${message}" th:class="${'alert ' + alertClass}">
+        <scan th:text="'Order Number should be Mandatory  -  '"/>
+        <scan th:text="'Order Number should be numeric  -  '"/>
+        <scan th:text="'Invalid Order Number'"/>
+    </div>
+
+    </div>
+
+    <form class="formcenter" id="form-orderdetails" th:action="@{/orderdetails}" method="get" th:object="${orderIndex}">
+
+        <h2>Track Order</h2>
+
+        <div class="form-group">
+            <label for="orderId">Enter Order Number</label>
+            <input type="text" id="orderId" name="orderId" placeholder="Order Number"
+                   th:field="*{idOrder}" class="form-control" th:errorclass="is-invalid"/>
+            <p class="alert alert-danger" th:if="${#fields.hasErrors('idOrder')}" th:errors="*{idOrder}">
+        </div>
+
+        <div class="button">
+            <button name="track" Id="track" type="submit">Track Order</button>
+        </div>
+    </form>
+
+</div>
+</body>
+</html>
